@@ -17,29 +17,7 @@ class ListviewExample extends React.Component {
     * This is an array of objects with the properties you desire
     * Usually this should come from Redux mapStateToProps
     *************************************************************/
-    const dataObjects = [
-      {title: 'First Title', description: 'First Description'},
-      {title: 'Second Title', description: 'Second Description'},
-      {title: 'Third Title', description: 'Third Description'},
-      {title: 'Fourth Title', description: 'Fourth Description'},
-      {title: 'Fifth Title', description: 'Fifth Description'},
-      {title: 'Sixth Title', description: 'Sixth Description'},
-      {title: 'Seventh Title', description: 'Seventh Description'},
-      {title: 'Eighth Title', description: 'Eighth Description'},
-      {title: 'Ninth Title', description: 'Ninth Description'},
-      {title: 'Tenth Title', description: 'Tenth Description'},
-      {title: 'Eleventh Title', description: 'Eleventh Description'},
-      {title: '12th Title', description: '12th Description'},
-      {title: '13th Title', description: '13th Description'},
-      {title: '14th Title', description: '14th Description'},
-      {title: '15th Title', description: '15th Description'},
-      {title: '16th Title', description: '16th Description'},
-      {title: '17th Title', description: '17th Description'},
-      {title: '18th Title', description: '18th Description'},
-      {title: '19th Title', description: '19th Description'},
-      {title: '20th Title', description: '20th Description'},
-      {title: 'BLACKJACK!', description: 'BLACKJACK! Description'}
-    ]
+    const { offerList } = props.offerList
 
     /* ***********************************************************
     * STEP 2
@@ -54,7 +32,7 @@ class ListviewExample extends React.Component {
 
     // Datasource is always in state
     this.state = {
-      dataSource: ds.cloneWithRows(dataObjects)
+      dataSource: ds.cloneWithRows(offerList)
     }
   }
 
@@ -103,20 +81,23 @@ class ListviewExample extends React.Component {
     return (
       <View style={styles.container}>
         <AlertMessage title='Nothing to See Here, Move Along' show={this.noRowData()} />
+        { !this.noRowData() &&
         <ListView
           contentContainerStyle={styles.listContent}
           dataSource={this.state.dataSource}
           renderRow={this.renderRow}
           pageSize={15}
         />
+        }
       </View>
     )
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ offerList }) => {
   return {
     // ...redux state to props here
+    offerList
   }
 }
 

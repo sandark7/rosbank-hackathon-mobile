@@ -5,7 +5,7 @@ export default StyleSheet.create({
   ...ApplicationStyles.screen,
   container: {
     flex: 1,
-    marginTop: Metrics.navBarHeight,
+    // marginTop: Metrics.navBarHeight,
     backgroundColor: Colors.background
   },
   row: {
