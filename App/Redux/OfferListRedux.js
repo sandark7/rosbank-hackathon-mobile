@@ -55,6 +55,7 @@ export const INITIAL_STATE = Immutable({
     }
   ]),
   error: null,
+  offerCount: 3,
   fetching: false
 })
 
@@ -64,8 +65,13 @@ export const INITIAL_STATE = Immutable({
 export const request = (state) => state.merge({ fetching: true })
 
 // we've successfully logged in
-export const success = (state, action) => {
-  return state.merge({ fetching: false, error: null, offerList: action.offerList })
+export const success = (state, { offerList }) => {
+  return state.merge({
+    fetching: false,
+    error: null,
+    offerList: offerList,
+    offerCount: offerList.length
+  })
 }
 
 // we've had a problem logging in

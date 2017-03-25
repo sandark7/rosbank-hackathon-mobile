@@ -1,4 +1,5 @@
 import React from 'react'
+import offerListActions from '../Redux/OfferListRedux'
 import { View,
   ScrollView
 } from 'react-native'
@@ -15,14 +16,12 @@ import styles from './Styles/MainScreenStyle'
 
 class Main extends React.Component {
 
+  componentWillMount () {
+    this.props.fetchOfferList()
+  }
+
   render () {
-    const { offerList } = this.props
-    let offerCount = 0
-
-    if (offerList && offerList.offerList) {
-      offerCount = this.props.offerList.offerList.length
-    }
-
+    const { offerCount } = this.props
     return (
       <View style={styles.container}>
         <TopBarMock />
@@ -36,14 +35,15 @@ class Main extends React.Component {
 
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({offerList}) => {
   return {
-    offerList: state.offerList
+    offerCount: offerList.offerCount
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    fetchOfferList: () => dispatch(offerListActions.offerListRequest())
   }
 }
 
