@@ -1,7 +1,7 @@
 import React from 'react'
 import { View,
-  ScrollView,
-  KeyboardAvoidingView } from 'react-native'
+  ScrollView
+} from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -17,12 +17,10 @@ class Main extends React.Component {
 
   render () {
     return (
-      <View>
+      <View style={styles.container}>
+        <TopBarMock />
         <ScrollView style={styles.container}>
-          <KeyboardAvoidingView behavior='position'>
-            <TopBarMock />
-            <MiddleContentMock />
-          </KeyboardAvoidingView>
+          <MiddleContentMock />
         </ScrollView>
         <BottomBarMock />
       </View>
