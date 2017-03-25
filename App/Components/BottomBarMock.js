@@ -1,17 +1,76 @@
 import React from 'react'
 import {
-  Image
+  View,
+  Text
 } from 'react-native'
 import styles from './Styles/BottomBarMockStyle'
-import {Images} from '../Themes'
+import {Metrics} from '../Themes'
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
+import I18n from 'react-native-i18n'
+import IconBadge from 'react-native-icon-badge'
+
 export default class BottomBarMock extends React.Component {
+
+  renderOfferBtn () {
+    const { offerCount } = this.props
+    let offerIcon = (
+      <View style={styles.tabBarItem}>
+        <MaterialIcon
+          name='local-offer'
+          style={styles.tabBarIcon}
+          size={Metrics.icons.medium}
+        />
+        <Text style={styles.tabBarText}>{I18n.t('offers')}</Text>
+      </View>
+    )
+    if (offerCount) {
+      return (
+        <IconBadge
+          MainElement={offerIcon}
+          BadgeElement={<Text style={styles.tabBarIconBadgeText}>{offerCount}</Text>}
+          IconBadgeStyle={styles.tabBarIconBadge}
+      />
+      )
+    } else return offerIcon
+  }
 
   render () {
     return (
-      <Image
-        source={Images.rb_bottom_mock}
-        style={styles.rb_bottom_mock}
-        />
+      <View style={styles.container}>
+        <View style={styles.tabBarContainer}>
+
+          <View style={styles.tabBarItem}>
+            <MaterialCommunityIcon
+              name='wallet'
+              style={styles.tabBarIcon}
+              size={Metrics.icons.medium}
+            />
+            <Text style={styles.tabBarText}>{I18n.t('payments')}</Text>
+          </View>
+
+          <View style={styles.tabBarItem}>
+            <MaterialCommunityIcon
+              name='history'
+              style={styles.tabBarIcon}
+              size={Metrics.icons.medium}
+            />
+            <Text style={styles.tabBarText}>{I18n.t('history')}</Text>
+          </View>
+
+          <View style={styles.tabBarItem}>
+            <MaterialCommunityIcon
+              name='layers'
+              style={styles.tabBarIcon}
+              size={Metrics.icons.medium}
+            />
+            <Text style={styles.tabBarText}>{I18n.t('templates')}</Text>
+          </View>
+
+          {this.renderOfferBtn()}
+
+        </View>
+      </View>
     )
   }
 }

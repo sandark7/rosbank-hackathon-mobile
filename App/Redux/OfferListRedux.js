@@ -17,6 +17,8 @@ export default Creators
 
 export const INITIAL_STATE = Immutable({
   offerList: Immutable([
+    {'name': 'Abigail', 'state': 'CA'},
+    {'name': 'Abigail', 'state': 'CA'},
     {'name': 'Abigail', 'state': 'CA'}
   ]),
   error: null,

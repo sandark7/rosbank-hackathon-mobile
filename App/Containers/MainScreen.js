@@ -16,13 +16,20 @@ import styles from './Styles/MainScreenStyle'
 class Main extends React.Component {
 
   render () {
+    const { offerList } = this.props
+    let offerCount = 0
+
+    if (offerList && offerList.offerList) {
+      offerCount = this.props.offerList.offerList.length
+    }
+
     return (
       <View style={styles.container}>
         <TopBarMock />
         <ScrollView style={styles.container}>
           <MiddleContentMock />
         </ScrollView>
-        <BottomBarMock />
+        <BottomBarMock offerCount={offerCount} />
       </View>
     )
   }
@@ -31,6 +38,7 @@ class Main extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    offerList: state.offerList
   }
 }
 

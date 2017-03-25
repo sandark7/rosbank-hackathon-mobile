@@ -1,4 +1,8 @@
 {
+  "payments": "Платежи",
+  "history": "История",
+  "templates": "Шаблоны",
+  "offers": "Акции",
    "signIn": "Sign In",
    "logOut": "Log Out",
    "loginLogoutExampleTitle": "Login/Logout Redux + Sagas Example",
