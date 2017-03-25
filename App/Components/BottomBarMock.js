@@ -4,6 +4,7 @@ import {
   Text
 } from 'react-native'
 import styles from './Styles/BottomBarMockStyle'
+import { Actions } from 'react-native-router-flux'
 import {Metrics} from '../Themes'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'

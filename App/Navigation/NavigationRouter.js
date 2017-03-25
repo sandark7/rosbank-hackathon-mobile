@@ -18,7 +18,7 @@ class NavigationRouter extends Component {
         <Scene key='drawer' component={NavigationDrawer} open={false}>
           <Scene key='drawerChildrenWrapper' navigationBarStyle={Styles.navBar} titleStyle={Styles.title} leftButtonIconStyle={Styles.leftButton} rightButtonTextStyle={Styles.rightButton}>
             <Scene initial key='mainScreen' component={MainScreen} title='MainScreen' hideNavBar />
-            <Scene key='listviewScreen' component={ListviewExample} title='ListviewExample' hideNavBar />
+            <Scene key='listviewScreen' component={ListviewExample} title='ListviewExample' />
           </Scene>
         </Scene>
       </Router>
