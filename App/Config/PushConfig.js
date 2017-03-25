@@ -1,20 +1,21 @@
 import PushNotification from 'react-native-push-notification'
+import Secrets from 'react-native-config'
 
 // https://github.com/zo0r/react-native-push-notification
 PushNotification.configure({
 
   // (optional) Called when Token is generated (iOS and Android)
   onRegister: (token) => {
-    if (__DEV__) console.log('TOKEN:', token)
+    console.log('TOKEN:', token)
   },
 
   // (required) Called when a remote or local notification is opened or received
   onNotification: (notification) => {
-    if (__DEV__) console.log('NOTIFICATION:', notification)
+    console.log('NOTIFICATION:', notification)
   },
 
   // ANDROID ONLY: (optional) GCM Sender ID.
-  senderID: 'YOUR GCM SENDER ID',
+  senderID: Secrets.GOOGLE_PUSH_SENDER_ID,
 
   // IOS ONLY (optional): default: all - Permissions to register.
   permissions: {
@@ -35,4 +36,9 @@ PushNotification.configure({
     * This example app shows how to best call requestPermissions() later.
     */
   requestPermissions: false
+})
+
+PushNotification.localNotificationSchedule({
+  message: 'My Notification Message', // (required)
+  date: new Date(Date.now() + (2 * 1000)) // in 60 secs
 })

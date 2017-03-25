@@ -22,7 +22,6 @@ class OfferListItem extends React.Component {
       logo,
       description
     } = this.props
-    console.log(this.props)
     return (
       <TouchableOpacity
         onPress={() => Actions.offerScreen(this.props)}
