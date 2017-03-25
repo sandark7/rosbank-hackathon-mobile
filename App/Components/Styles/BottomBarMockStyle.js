@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import {Colors} from '../../Themes'
 
 export default StyleSheet.create({
   container: {
@@ -7,8 +8,8 @@ export default StyleSheet.create({
     paddingTop: 5,
     borderTopWidth: 0.5,
     borderStyle: 'solid',
-    borderTopColor: '#858585',
-    backgroundColor: 'white'
+    borderTopColor: Colors.mainColor,
+    backgroundColor: Colors.headerBgColor
   },
 
   tabBarItem: {
@@ -18,17 +19,18 @@ export default StyleSheet.create({
   },
 
   tabBarIcon: {
-    color: '#858585'
+    color: Colors.mainColor
   },
 
   tabBarIconBadge: {
-    width: 15,
-    height: 15
+    width: 20,
+    height: 20,
+    backgroundColor: Colors.rbRed
   },
 
   tabBarIconBadgeText: {
-    fontSize: 12,
-    color: 'white'
+    fontSize: 11,
+    color: Colors.headerBgColor
   },
 
   tabBarText: {
@@ -36,11 +38,11 @@ export default StyleSheet.create({
     fontSize: 9,
     padding: 0,
     margin: 0,
-    color: '#858585'
+    color: Colors.mainColor
   },
 
   tabBarContainer: {
-    backgroundColor: 'white',
+    backgroundColor: Colors.headerBgColor,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',

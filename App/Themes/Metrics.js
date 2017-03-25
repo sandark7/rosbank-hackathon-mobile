@@ -19,6 +19,7 @@ const metrics = {
   navBarHeight: (Platform.OS === 'ios') ? 64 : 54,
   buttonRadius: 4,
   icons: {
+    suretiny: 10,
     tiny: 15,
     small: 20,
     medium: 30,

@@ -1,6 +1,7 @@
 import React from 'react'
 import {
   View,
+  TouchableHighlight,
   Text
 } from 'react-native'
 import styles from './Styles/BottomBarMockStyle'
@@ -27,11 +28,13 @@ export default class BottomBarMock extends React.Component {
     )
     if (offerCount) {
       return (
-        <IconBadge
-          MainElement={offerIcon}
-          BadgeElement={<Text style={styles.tabBarIconBadgeText}>{offerCount}</Text>}
-          IconBadgeStyle={styles.tabBarIconBadge}
-      />
+        <View>
+          <IconBadge
+            MainElement={offerIcon}
+            BadgeElement={<Text style={styles.tabBarIconBadgeText}>{offerCount}</Text>}
+            IconBadgeStyle={styles.tabBarIconBadge}
+          />
+        </View>
       )
     } else return offerIcon
   }
@@ -68,7 +71,12 @@ export default class BottomBarMock extends React.Component {
             <Text style={styles.tabBarText}>{I18n.t('templates')}</Text>
           </View>
 
-          {this.renderOfferBtn()}
+          <TouchableHighlight
+            onPress={Actions.listviewScreen}
+            underlayColor='white'
+          >
+            {this.renderOfferBtn()}
+          </TouchableHighlight>
 
         </View>
       </View>

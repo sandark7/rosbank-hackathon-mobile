@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { Metrics, ApplicationStyles } from '../../Themes/'
+import { Colors, Metrics, ApplicationStyles } from '../../Themes/'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
@@ -7,6 +7,6 @@ export default StyleSheet.create({
     flex: 1,
     flexGrow: 1,
     height: Metrics.screenHeight - 50,
-    backgroundColor: '#f0f0f0'
+    backgroundColor: Colors.background
   }
 })

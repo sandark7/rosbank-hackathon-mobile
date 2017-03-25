@@ -1,75 +1,48 @@
 import React from 'react'
-import { View, Text, ListView } from 'react-native'
+import {
+  View,
+  RefreshControl,
+  ListView
+} from 'react-native'
 import { connect } from 'react-redux'
 
 // For empty lists
 import AlertMessage from '../Components/AlertMessage'
+import OfferListItem from '../Containers/OfferListItem'
 
 // Styles
 import styles from './Styles/ListviewExampleStyles'
+import offerListActions from '../Redux/OfferListRedux'
 
 class ListviewExample extends React.Component {
 
   constructor (props) {
     super(props)
-    /* ***********************************************************
-    * STEP 1
-    * This is an array of objects with the properties you desire
-    * Usually this should come from Redux mapStateToProps
-    *************************************************************/
     const { offerList } = props.offerList
-
-    /* ***********************************************************
-    * STEP 2
-    * Teach datasource how to detect if rows are different
-    * Make this function fast!  Perhaps something like:
-    *   (r1, r2) => r1.id !== r2.id}
-    *************************************************************/
     const rowHasChanged = (r1, r2) => r1 !== r2
-
-    // DataSource configured
     const ds = new ListView.DataSource({rowHasChanged})
-
-    // Datasource is always in state
     this.state = {
       dataSource: ds.cloneWithRows(offerList)
     }
   }
 
-  /* ***********************************************************
-  * STEP 3
-  * `renderRow` function -How each cell/row should be rendered
-  * It's our best practice to place a single component here:
-  *
-  * e.g.
-    return <MyCustomCell title={rowData.title} description={rowData.description} />
-  *************************************************************/
   renderRow (rowData) {
     return (
-      <View style={styles.row}>
-        <Text style={styles.boldLabel}>{rowData.title}</Text>
-        <Text style={styles.label}>{rowData.description}</Text>
-      </View>
+      <OfferListItem {...rowData} />
     )
   }
 
-  /* ***********************************************************
-  * STEP 4
-  * If your datasource is driven by Redux, you'll need to
-  * reset it when new data arrives.
-  * DO NOT! place `cloneWithRows` inside of render, since render
-  * is called very often, and should remain fast!  Just replace
-  * state's datasource on newProps.
-  *
-  * e.g.
-    componentWillReceiveProps (newProps) {
-      if (newProps.someData) {
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(newProps.someData)
-        })
-      }
+  componentWillReceiveProps (newProps) {
+    if (newProps.offerList && newProps.offerList.offerList) {
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(newProps.offerList.offerList)
+      })
     }
-  *************************************************************/
+  }
+
+  onRefresh = () => {
+    this.props.fetchOfferList()
+  }
 
   // Used for friendly AlertMessage
   // returns true if the dataSource is empty
@@ -86,6 +59,12 @@ class ListviewExample extends React.Component {
           contentContainerStyle={styles.listContent}
           dataSource={this.state.dataSource}
           renderRow={this.renderRow}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.props.refreshing}
+              onRefresh={this.onRefresh}
+            />
+          }
           pageSize={15}
         />
         }
@@ -97,8 +76,16 @@ class ListviewExample extends React.Component {
 const mapStateToProps = ({ offerList }) => {
   return {
     // ...redux state to props here
-    offerList
+    offerList,
+    refreshing: offerList.fetching
   }
 }
 
-export default connect(mapStateToProps)(ListviewExample)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // ...redux state to props here
+    fetchOfferList: () => dispatch(offerListActions.offerListRequest())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListviewExample)
