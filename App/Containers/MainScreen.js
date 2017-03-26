@@ -1,4 +1,5 @@
 import React from 'react'
+import PushNotification from 'react-native-push-notification'
 import offerListActions from '../Redux/OfferListRedux'
 import { View,
   ScrollView
@@ -18,6 +19,24 @@ class Main extends React.Component {
 
   componentWillMount () {
     this.props.fetchOfferList()
+    PushNotification.configure({
+      onRegister: (token) => {
+        console.log('TOKEN:', token)
+        fetch('http://10.91.5.135:8080/registerDevice', {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          method: "POST",
+          body: JSON.stringify(token),
+        })
+      },
+      onNotification: (notification) => {
+        console.log('NOTIFICATION:', notification)
+      },
+      senderID: 142726714221,
+      popInitialNotification: false,
+    })
   }
 
   render () {
