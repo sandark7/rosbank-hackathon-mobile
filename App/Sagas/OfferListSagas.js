@@ -1,4 +1,5 @@
 import { put } from 'redux-saga/effects'
+import {Actions as NavigationActions} from 'react-native-router-flux'
 import offerListActions from '../Redux/OfferListRedux'
 
 export function * offerList () {
@@ -14,4 +15,8 @@ export function * offerList () {
   if (data) {
     yield put(offerListActions.offerListSuccess(data))
   }
+}
+
+export function * offerListNavigate ({offer}) {
+  NavigationActions.offerScreen(offer)
 }

@@ -7,6 +7,7 @@ const { Types, Creators } = createActions({
   offerListRequest: null,
   offerListSuccess: ['offerList'],
   offerListFailure: ['error'],
+  offerListNavigate: ['offer'],
   logout: null
 })
 
@@ -74,7 +75,6 @@ export const success = (state, { offerList }) => {
   })
 }
 
-// we've had a problem logging in
 export const failure = (state, { error }) =>
   state.merge({ fetching: false, error })
 

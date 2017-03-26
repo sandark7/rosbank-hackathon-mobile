@@ -1,12 +1,11 @@
 import React from 'react'
 import PushNotification from 'react-native-push-notification'
 import offerListActions from '../Redux/OfferListRedux'
-import { View,
+import {
+  View,
   ScrollView
 } from 'react-native'
 import { connect } from 'react-redux'
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
 
 import TopBarMock from '../Components/TopBarMock'
 import BottomBarMock from '../Components/BottomBarMock'
@@ -20,23 +19,32 @@ class Main extends React.Component {
   componentWillMount () {
     this.props.fetchOfferList()
     PushNotification.configure({
-      onRegister: (token) => {
-        console.log('TOKEN:', token)
-        fetch('http://10.91.5.135:8080/registerDevice', {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          method: "POST",
-          body: JSON.stringify(token),
-        })
-      },
-      onNotification: (notification) => {
-        console.log('NOTIFICATION:', notification)
-      },
-      senderID: 142726714221,
-      popInitialNotification: false,
+      onRegister: this.onRegister,
+      onNotification: this.onNotification,
+      senderID: '142726714221',
+      popInitialNotification: false
     })
+  }
+
+  onRegister = token => {
+    console.log('TOKEN:', token)
+    fetch('http://rsb-linuxvm-04.northeurope.cloudapp.azure.com/api/registerDevice', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(token)
+    })
+  }
+
+  onNotification = notification => {
+    console.log('NOTIFICATION:', notification)
+    if (notification.foreground) return
+
+    let id = parseInt(notification.offerId, 10)
+    let offer = this.props.offerList.offerList.find(v => v.id === id)
+    this.props.navigateOfferScreen(offer)
   }
 
   render () {
@@ -56,13 +64,15 @@ class Main extends React.Component {
 
 const mapStateToProps = ({offerList}) => {
   return {
-    offerCount: offerList.offerCount
+    offerCount: offerList.offerCount,
+    offerList
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, state) => {
   return {
-    fetchOfferList: () => dispatch(offerListActions.offerListRequest())
+    fetchOfferList: () => dispatch(offerListActions.offerListRequest()),
+    navigateOfferScreen: (offer) => dispatch(offerListActions.offerListNavigate(offer))
   }
 }
 
