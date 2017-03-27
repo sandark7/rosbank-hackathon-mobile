@@ -26,25 +26,21 @@ class Main extends React.Component {
     })
   }
 
-  onRegister = token => {
+  onRegister = ({token}) => {
     console.log('TOKEN:', token)
-    fetch('http://rsb-linuxvm-04.northeurope.cloudapp.azure.com/api/registerDevice', {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify(token)
-    })
+    fetch('http://rsb-linuxvm-04.northeurope.cloudapp.azure.com/api/registerDevice/' + token)
   }
 
   onNotification = notification => {
     console.log('NOTIFICATION:', notification)
+    this.props.fetchOfferList()
     if (notification.foreground) return
 
-    let id = parseInt(notification.offerId, 10)
-    let offer = this.props.offerList.offerList.find(v => v.id === id)
-    this.props.navigateOfferScreen(offer)
+    setTimeout(() => {
+      let id = parseInt(notification.offerId, 10)
+      let offer = this.props.offerList.offerList.find(v => v.id === id)
+      this.props.navigateOfferScreen(offer)
+    }, 500)
   }
 
   render () {
